@@ -1,5 +1,5 @@
-# Use a modern, minimal Alpine Python base image
-FROM python:3.11-alpine3.19
+# Bump to a newer, actively supported Alpine release (3.20)
+FROM python:3.11-alpine3.20
 
 # Create a non-root user and group for security
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
@@ -10,7 +10,10 @@ WORKDIR /usr/src/app
 # Copy dependency requirements
 COPY requirements.txt .
 
-# Install dependencies without caching to keep the image minimal
+# Upgrade the pre-installed Python tools to patch CVEs
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+
+# Install our application dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application source code
