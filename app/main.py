@@ -21,4 +21,4 @@ if __name__ == '__main__':
     # Never run in debug mode in production. 
     # Bind to 0.0.0.0 to work properly inside a Docker container.
     port = int(os.environ.get("PORT", 8080))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=False)  # nosec B104
