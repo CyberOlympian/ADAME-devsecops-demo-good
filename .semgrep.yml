@@ -1,0 +1,12 @@
+rules:
+  - id: no-hardcoded-secrets
+    patterns:
+      - pattern-either:
+          - pattern: $X = "..."
+          - pattern: $X == "..."
+      - metavariable-regex:
+          metavariable: $X
+          regex: (?i)(password|secret|token|api_key|cert|key)
+    message: "Potential hardcoded credential detected. Use environment variables."
+    severity: ERROR
+    languages: [python]
